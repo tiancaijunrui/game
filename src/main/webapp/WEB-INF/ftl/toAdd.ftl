@@ -1,5 +1,14 @@
-<#import "head.ftl" as h>
-<@h.head title="">
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <script src="./layui/layui.js"></script>
+</head>
+<body background = "./layui/images/myImages/background.jpg">
+
 <script>
     layui.use('layer', function () {
         var layer = layui.layer;
@@ -31,4 +40,5 @@
         });
     });
 </script>
-</@h.head>
+</body>
+</html>

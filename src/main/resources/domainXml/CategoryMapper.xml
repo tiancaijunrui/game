@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zcj.map.CategoryMapper">
-    <insert id="save" parameterType="com.zcj.domain.Category"   >
+    <insert id="save" parameterType="com.zcj.domain.Category" >
         INSERT INTO category (id,food_name,is_meat,select_count) VALUES (#{id},#{foodName},#{isMeat},#{selectCount})
     </insert>
 
-    <select id="load" parameterType="String" resultType="com.zcj.domain.Category">
+    <select id="load" parameterType="String" resultType="com.zcj.domain.Category" resultMap="categoryResultMap">
         SELECT * FROM  category WHERE id = #{id}
     </select>
-
+    <select id="loadAll" resultType="com.zcj.domain.Category" parameterType="java.lang.Integer" resultMap="categoryResultMap">
+        SELECT * FROM category ORDER BY select_Count DESC LIMIT #{pageSize}
+    </select>
+    <resultMap id="categoryResultMap" type="com.zcj.domain.Category">
+        <id property="id" column="id" />
+        <result property="foodName" column="food_name"/>
+        <result property="isMeat" column="is_meat"/>
+        <result property="selectCount" column="select_count"/>
+    </resultMap>
 </mapper>

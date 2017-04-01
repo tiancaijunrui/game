@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Since2017/3/29 ZhaCongJie@HF
@@ -25,5 +26,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category load(String id) {
         return categoryMapper.load(id);
+    }
+
+    @Override
+    public List<Category> loadAll(int pageSize) {
+        return categoryMapper.loadAll(pageSize);
     }
 }
