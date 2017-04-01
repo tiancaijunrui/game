@@ -2,12 +2,13 @@ package com.zcj.domain;
 
 import org.apache.ibatis.type.Alias;
 
+import java.io.Serializable;
+
 /**
  * @Since2017/3/27 ZhaCongJie@HF
  */
 
-@Alias("category")
-public class Category {
+public class Category implements Serializable{
 
     private String id;
     private String foodName;

@@ -23,10 +23,4 @@
         <!-- 数据库超过25000秒仍未响应则超时 -->
         <setting name="defaultStatementTimeout" value="25000" />
     </settings>
-    <!--<typeAliases>-->
-        <!--<typeAlias type="Category" alias="com.zcj.domain.Category"/>-->
-    <!--</typeAliases>-->
-    <!--<mappers>-->
-        <!--<mapper resource="com.zcj.domain."/>-->
-    <!--</mappers>-->
 </configuration>

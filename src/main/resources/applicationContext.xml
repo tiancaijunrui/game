@@ -72,10 +72,10 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="myDatasource" />
         <property name="configLocation" value="classpath:configuration.xml"/>
-        <property name="mapperLocations" value="classpath:com/zcj/domain/*.xml"/>
+        <property name="mapperLocations" value="classpath*:domainXml/*.xml"/>
     </bean>
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.zcj.domain.service"/>
-        <property name="annotationClass" value="com.zcj.utils.annotation.MyBatisService"/>
+        <property name="basePackage" value="com.zcj.map"/>
+        <property name="annotationClass" value="org.springframework.stereotype.Repository" />
     </bean>
 </beans>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zcj.map.CategoryMapper">
+    <insert id="save" parameterType="com.zcj.domain.Category"   >
+        INSERT INTO category (id,food_name,is_meat,select_count) VALUES (#{id},#{foodName},#{isMeat},#{selectCount})
+    </insert>
+
+    <select id="load" parameterType="String" resultType="com.zcj.domain.Category">
+        SELECT * FROM  category WHERE id = #{id}
+    </select>
+
+</mapper>
