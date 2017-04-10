@@ -2,12 +2,7 @@ package com.zcj.controller;
 
 import com.zcj.domain.Category;
 import com.zcj.service.CategoryService;
-import com.zcj.utils.gameUtils;
-import jdk.nashorn.internal.parser.JSONParser;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.UUIDEditor;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
@@ -15,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -60,5 +55,12 @@ public class testController{
         category.setId(String.valueOf(UUID.randomUUID()).replaceAll("-",""));
         categoryService.save(category);
         return  new ModelAndView("toAdd","state",true);
+    }
+
+    @RequestMapping("/toDelete")
+    public ModelAndView toDelete(ModelMap modelMap,String categoryIds) {
+        List<String> ids = Arrays.asList(categoryIds.split(","));
+        categoryService.batchDelete(ids);
+        return new ModelAndView("toChoose","state",true);
     }
 }

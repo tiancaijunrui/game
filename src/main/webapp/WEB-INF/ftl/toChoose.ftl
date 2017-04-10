@@ -43,9 +43,14 @@
                 return false;
             }
 
-            var dataIdList = new Array();
+            var dataIdList = '';
             $("section").find(".layui-btn-warm").each(function(i,n){
-                dataIdList.join(n.getAttribute("datafld"));
+                if (dataIdList.indexOf(',') == -1){
+                    dataIdList = n.getAttribute("datafld")+",";
+                }else{
+                    dataIdList += n.getAttribute("datafld")+",";
+                }
+
             });
             if (dataType === 'add'){
                 layui.use('layer', function(){
@@ -61,19 +66,16 @@
                     var layer = layui.layer;
                     layer.open({
                         type:2,
-                        content:"toEdit?"+dataIdList.serialize()
+                        content:"toEdit?categoryIds="+dataIdList
                     })
                 });
 
             }else if(dataType === 'delete'){
-                $.post("toDelete",dataIdList.serialize(),function(d){
-                    layui.use('layer', function(){
-                        var layer = layui.layer;
-                        layer.msg('删除成功~~');
-                    });
+                $.post("toDelete",{categoryIds:dataIdList},function(d){
+                    location.reload();
                 })
             }else if(dataType === 'done'){
-                $.post("/game/done",dataIdList.serialize(),function(d){
+                $.post("/game/done?categoryIds="+dataIdList,function(d){
 
                 })
             }

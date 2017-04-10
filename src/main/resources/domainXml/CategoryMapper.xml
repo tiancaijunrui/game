@@ -11,6 +11,12 @@
     <select id="loadAll" resultType="com.zcj.domain.Category" parameterType="java.lang.Integer" resultMap="categoryResultMap">
         SELECT * FROM category ORDER BY select_Count DESC LIMIT #{pageSize}
     </select>
+    <delete id="batchDelete" parameterType="java.util.List">
+        DELETE FROM category WHERE id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
     <resultMap id="categoryResultMap" type="com.zcj.domain.Category">
         <id property="id" column="id" />
         <result property="foodName" column="food_name"/>

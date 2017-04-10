@@ -32,4 +32,9 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> loadAll(int pageSize) {
         return categoryMapper.loadAll(pageSize);
     }
+
+    @Override
+    public void batchDelete(List<String> categoryIds) {
+        categoryMapper.batchDelete(categoryIds);
+    }
 }
