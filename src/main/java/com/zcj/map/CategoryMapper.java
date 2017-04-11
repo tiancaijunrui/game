@@ -15,4 +15,5 @@ public interface CategoryMapper {
     Category load(String id);
     List<Category> loadAll(int pageSize);
     void batchDelete(List<String> categoryIds);
+    void update(Category category);
 }

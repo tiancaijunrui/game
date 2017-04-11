@@ -64,9 +64,13 @@
             }else if(dataType === 'edit'){
                 layui.use('layer', function(){
                     var layer = layui.layer;
+                    if ($("section").find(".layui-btn-warm").length > 1){
+                        layer.msg("一次只能编辑一道菜~~~");
+                        return false;
+                    }
                     layer.open({
                         type:2,
-                        content:"toEdit?categoryIds="+dataIdList
+                        content:"toEdit?categoryId="+$("section").find(".layui-btn-warm").attr("datafld")
                     })
                 });
 
@@ -75,7 +79,7 @@
                     location.reload();
                 })
             }else if(dataType === 'done'){
-                $.post("/game/done?categoryIds="+dataIdList,function(d){
+                $.post("toDone?categoryIds="+dataIdList,function(d){
 
                 })
             }

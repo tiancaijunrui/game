@@ -2,6 +2,7 @@ package com.zcj.controller;
 
 import com.zcj.domain.Category;
 import com.zcj.service.CategoryService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -47,13 +48,19 @@ public class testController{
     }
 
     @RequestMapping("/add")
-    public ModelAndView add(ModelMap modelMap, String foodName, Boolean isMeat) {
+    public ModelAndView add(ModelMap modelMap, String foodName, Boolean isMeat,String categoryId) {
         Category category = new Category();
         category.setMeat(isMeat);
         category.setFoodName(foodName);
-        category.setSelectCount(0);
-        category.setId(String.valueOf(UUID.randomUUID()).replaceAll("-",""));
-        categoryService.save(category);
+        if (StringUtils.isBlank(categoryId)){
+            category.setSelectCount(0);
+            category.setId(String.valueOf(UUID.randomUUID()).replaceAll("-",""));
+            categoryService.save(category);
+        }else{
+            category.setId(categoryId);
+            categoryService.update(category);
+        }
+
         return  new ModelAndView("toAdd","state",true);
     }
 
@@ -63,4 +70,16 @@ public class testController{
         categoryService.batchDelete(ids);
         return new ModelAndView("toChoose","state",true);
     }
+    @RequestMapping("/toEdit")
+    public ModelAndView toEdit(ModelMap modelMap,String categoryId) {
+        Category category = categoryService.load(categoryId);
+        return new ModelAndView("toAdd","category",category);
+    }
+    @RequestMapping("/done")
+    public ModelAndView toDone(ModelMap modelMap,String categoryId) {
+        Category category = categoryService.load(categoryId);
+        return new ModelAndView("toAdd","category",category);
+    }
+
 }
+

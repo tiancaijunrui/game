@@ -37,4 +37,9 @@ public class CategoryServiceImpl implements CategoryService {
     public void batchDelete(List<String> categoryIds) {
         categoryMapper.batchDelete(categoryIds);
     }
+
+    @Override
+    public void update(Category category) {
+        categoryMapper.update(category);
+    }
 }

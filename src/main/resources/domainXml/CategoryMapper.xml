@@ -17,6 +17,9 @@
             #{item}
         </foreach>
     </delete>
+    <update id="update" parameterType="com.zcj.domain.Category">
+        UPDATE category SET food_name = #{foodName},is_meat = #{isMeat} WHERE id = #{id}
+    </update>
     <resultMap id="categoryResultMap" type="com.zcj.domain.Category">
         <id property="id" column="id" />
         <result property="foodName" column="food_name"/>
