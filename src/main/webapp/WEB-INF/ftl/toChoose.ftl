@@ -79,8 +79,8 @@
                     location.reload();
                 })
             }else if(dataType === 'done'){
-                $.post("toDone?categoryIds="+dataIdList,function(d){
-
+                $.post("done?categoryIds="+dataIdList,function(d){
+                    location.reload();
                 })
             }
 

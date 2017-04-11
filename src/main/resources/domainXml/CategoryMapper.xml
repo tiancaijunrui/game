@@ -11,6 +11,13 @@
     <select id="loadAll" resultType="com.zcj.domain.Category" parameterType="java.lang.Integer" resultMap="categoryResultMap">
         SELECT * FROM category ORDER BY select_Count DESC LIMIT #{pageSize}
     </select>
+    <select id="loadByIdList" resultType="com.zcj.domain.Category" resultMap="categoryResultMap">
+        SELECT * from category WHERE id IN
+        <foreach collection="list" item="id" open="(" close=")"
+                 separator=",">
+            #{id}
+        </foreach>
+    </select>
     <delete id="batchDelete" parameterType="java.util.List">
         DELETE FROM category WHERE id IN
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
@@ -18,7 +25,16 @@
         </foreach>
     </delete>
     <update id="update" parameterType="com.zcj.domain.Category">
-        UPDATE category SET food_name = #{foodName},is_meat = #{isMeat} WHERE id = #{id}
+        UPDATE category SET food_name = #{foodName},is_meat = #{isMeat},select_count = #{selectCount} WHERE id = #{id}
+    </update>
+    <update id="batchUpdate" parameterType="com.zcj.domain.Category">
+        <foreach collection="list" item="item" index="index" open="update" close=" " separator=";">
+            UPDATE category
+            <set>
+            select_count = ${item.selectCount}
+          </set>
+            WHERE id = '${item.id}'
+        </foreach>
     </update>
     <resultMap id="categoryResultMap" type="com.zcj.domain.Category">
         <id property="id" column="id" />

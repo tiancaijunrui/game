@@ -21,64 +21,76 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/")
-public class testController{
+public class testController {
 
     @Autowired
     CategoryService categoryService;
 
-    @RequestMapping(value = "/index",method = RequestMethod.GET)
-    public String index(ModelMap modelMap){
-        modelMap.put("name","junrui");
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String index(ModelMap modelMap) {
+        modelMap.put("name", "junrui");
         return "index";
     }
 
-    @RequestMapping(value = "/toChoose",method = RequestMethod.GET)
-    public String toLogin(ModelMap modelMap){
+    @RequestMapping(value = "/toChoose", method = RequestMethod.GET)
+    public String toLogin(ModelMap modelMap) {
         int pageSize = 100;
-        List<Category> dataCategoryList =  categoryService.loadAll(pageSize);
-        if (CollectionUtils.isEmpty(dataCategoryList)){
+        List<Category> dataCategoryList = categoryService.loadAll(pageSize);
+        if (CollectionUtils.isEmpty(dataCategoryList)) {
             return "toAdd";
         }
-        modelMap.put("categoryList",dataCategoryList);
+        modelMap.put("categoryList", dataCategoryList);
         return "toChoose";
     }
+
     @RequestMapping(value = "/toAdd")
-    public String toAdd(ModelMap modelMap){
+    public String toAdd(ModelMap modelMap) {
         return "toAdd";
     }
 
     @RequestMapping("/add")
-    public ModelAndView add(ModelMap modelMap, String foodName, Boolean isMeat,String categoryId) {
+    public ModelAndView add(ModelMap modelMap, String foodName, Boolean isMeat, String categoryId) {
         Category category = new Category();
         category.setMeat(isMeat);
         category.setFoodName(foodName);
-        if (StringUtils.isBlank(categoryId)){
+        if (StringUtils.isBlank(categoryId)) {
             category.setSelectCount(0);
-            category.setId(String.valueOf(UUID.randomUUID()).replaceAll("-",""));
+            category.setId(String.valueOf(UUID.randomUUID()).replaceAll("-", ""));
             categoryService.save(category);
-        }else{
+        } else {
             category.setId(categoryId);
             categoryService.update(category);
         }
 
-        return  new ModelAndView("toAdd","state",true);
+        return new ModelAndView("toAdd", "state", true);
     }
 
     @RequestMapping("/toDelete")
-    public ModelAndView toDelete(ModelMap modelMap,String categoryIds) {
+    public ModelAndView toDelete(ModelMap modelMap, String categoryIds) {
         List<String> ids = Arrays.asList(categoryIds.split(","));
         categoryService.batchDelete(ids);
-        return new ModelAndView("toChoose","state",true);
+        return new ModelAndView("toChoose", "state", true);
     }
+
     @RequestMapping("/toEdit")
-    public ModelAndView toEdit(ModelMap modelMap,String categoryId) {
+    public ModelAndView toEdit(ModelMap modelMap, String categoryId) {
         Category category = categoryService.load(categoryId);
-        return new ModelAndView("toAdd","category",category);
+        return new ModelAndView("toAdd", "category", category);
     }
+
     @RequestMapping("/done")
-    public ModelAndView toDone(ModelMap modelMap,String categoryId) {
-        Category category = categoryService.load(categoryId);
-        return new ModelAndView("toAdd","category",category);
+    public ModelAndView toDone(ModelMap modelMap, String categoryIds) {
+        List<String> ids = Arrays.asList(categoryIds.split(","));
+        List<Category> categoryList = categoryService.loadByIdList(ids);
+        if (CollectionUtils.isEmpty(categoryList)) {
+            return new ModelAndView("toChoose");
+        }
+        for (Category category : categoryList) {
+            int selectCount = category.getSelectCount() == null ? 0 : category.getSelectCount();
+            category.setSelectCount(selectCount+1);
+            categoryService.update(category);
+        }
+        return new ModelAndView("toAdd", "categoryList", categoryList);
     }
 
 }

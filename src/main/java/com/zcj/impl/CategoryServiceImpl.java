@@ -42,4 +42,14 @@ public class CategoryServiceImpl implements CategoryService {
     public void update(Category category) {
         categoryMapper.update(category);
     }
+
+    @Override
+    public List<Category> loadByIdList(List<String> categoryIdList) {
+        return categoryMapper.loadByIdList(categoryIdList);
+    }
+
+    @Override
+    public void batchUpdate(List<Category> categoryList) {
+       categoryMapper.batchUpdate(categoryList);
+    }
 }
