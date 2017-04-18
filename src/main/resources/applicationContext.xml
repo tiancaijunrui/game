@@ -27,7 +27,8 @@
 
     <mvc:annotation-driven/>
     <context:component-scan base-package="com.zcj"/>
-    <mvc:resources location="/layui/" mapping="/layui/**" cache-period="86400"/>
+    <!--<mvc:resources location="/layui/" mapping="/layui/**" cache-period="86400"/>-->
+    <mvc:resources location="/assets/" mapping="/assets/**" cache-period="86400"/>
 
     <!-- 配置freeMarker视图解析器 -->
     <bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
@@ -41,7 +42,7 @@
 
     <!-- 配置freeMarker的模板路径 -->
     <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="/WEB-INF/ftl"/>
+        <property name="templateLoaderPath" value="/WEB-INF/gameFtl"/>
         <property name="freemarkerVariables">
             <map>
                 <entry key="xml_escape" value-ref="fmXmlEscape"/>
