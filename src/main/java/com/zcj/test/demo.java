@@ -7,8 +7,14 @@ import java.util.UUID;
  */
 public class demo {
     public static void main(String[] args) {
-        String uuid = UUID.randomUUID().toString().replaceAll("-","");
-        System.out.println(uuid);
+        int i= 0;
+
+        while (i < 146){
+            String uuid = UUID.randomUUID().toString().replaceAll("-","");
+            System.out.println(uuid);
+            i++;
+        }
+
     }
 
 }

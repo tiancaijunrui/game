@@ -1,5 +1,5 @@
-<#macro head title >
 <#assign staticsPath = '../'/>
+<#macro head title >
 <!doctype html>
 <html class="no-js">
 <head>
