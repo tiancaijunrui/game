@@ -46,6 +46,7 @@
           <element id="library" level="project" name="Maven: commons-pool:commons-pool:1.6" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.8.8" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.8.8" />
+          <element id="file-copy" path="$MAVEN_REPOSITORY$/com/alipay/sdk-Java/20170511115337/sdk-Java-20170511115337.jar" output-file-name="sdk-java-20170511115337.jar" />
         </element>
       </element>
       <element id="directory" name="META-INF">
